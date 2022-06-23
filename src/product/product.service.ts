@@ -12,12 +12,16 @@ export class ProductService {
   ) {}
 
   async getProducts(): Promise<Product[]> {
-    const query = this.productRepository.createQueryBuilder('product');
+    const query = this.productRepository
+      .createQueryBuilder('product')
+      .innerJoinAndSelect('product.category', 'category');
     return query.getMany();
   }
 
   async getProductsByCategory(categoryId: number): Promise<Product[]> {
-    const query = this.productRepository.createQueryBuilder('product');
+    const query = this.productRepository
+      .createQueryBuilder('product')
+      .innerJoinAndSelect('product.category', 'category');
     return query.where(`product.category = :id`, { id: categoryId }).getMany();
   }
 

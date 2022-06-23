@@ -1,16 +1,26 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Product } from '../../product/dto/product.entity';
 
 @Entity()
 export class Substitute {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @OneToOne((type) => Product, (product) => product.id)
-  mainProductId: number;
+  @Column()
+  @ManyToOne((type) => Product, (product) => product.id)
+  @JoinColumn()
+  mainProduct: number;
 
-  @OneToOne((type) => Product, (product) => product.id)
-  secondProductId: number;
+  @Column()
+  @ManyToOne((type) => Product, (product) => product.id)
+  @JoinColumn()
+  secondProduct: number;
 
   @Column()
   mainProductWeight: number;
