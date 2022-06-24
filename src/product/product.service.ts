@@ -18,6 +18,12 @@ export class ProductService {
     return query.getMany();
   }
 
+  async getProduct(productId: number): Promise<Product> {
+    const query = this.productRepository
+      .createQueryBuilder('product');
+    return query.where('product.id = :id', { id: productId }).getOne();
+  }
+
   async getProductsByCategory(categoryId: number): Promise<Product[]> {
     const query = this.productRepository
       .createQueryBuilder('product')

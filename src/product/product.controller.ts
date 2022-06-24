@@ -7,6 +7,11 @@ import { AddProductDto } from './dto/add-product.dto';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
+  @Get('/:id')
+  async getProduct(@Param('productId') productId: number): Promise<Product> {
+    return this.productService.getProduct(productId);
+  }
+
   @Get('/all')
   async getProducts(): Promise<Product[]> {
     return this.productService.getProducts();
